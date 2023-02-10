@@ -218,3 +218,365 @@ for i in range(6, 1, -2):
 # The length of a list may vary during execution. New elements may be added to the list, while others may be removed from it. This means that the list is a very dynamic entity.
 # If you want to check the list's current length, you can use a function named len() (its name comes from length).
 # The function takes the list's name as an argument, and returns the number of elements currently stored inside the list (in other words ‒ the list's length)
+# 4.3 Accessing list content
+print(numbers[0]) # Accessing the list's first element.
+# 4.6 Functions vs. methods
+# A method is a specific kind of function ‒ it behaves like a function and looks like a function, but differs in the way in which it acts, and in its invocation style.
+# A function doesn't belong to any data ‒ it gets data, it may create new data and it (generally) produces a result.
+# A method does all these things, but is also able to change the state of a selected entity.
+# A method is owned by the data it works for, while a function is owned by the whole code.
+# This also means that invoking a method requires some specification of the data from which the method is invoked.
+
+
+# 4.7 Adding elements to a list: append() and insert()
+# A new element may be glued to the end of the existing list:
+# ******* list.append(value)
+# Such an operation is performed by a method named append(). It takes its argument's value and puts it at the end of the list which owns the method.
+# The list's length then increases by one.
+# The insert() method is a bit smarter ‒ it can add a new element at any place in the list, not only at the end.
+# list.insert(location, value)
+# It takes two arguments:
+# the first shows the required location of the element to be inserted; note: all the existing elements that occupy locations to the right of the new element (including the one at the indicated position) are shifted to the right, in order to make space for the new element;
+# the second is the element to be inserted.
+
+# ****** list.insert(location, value)
+
+# You can start a list's life by making it empty (this is done with an empty pair of square brackets) and then adding new elements to it as needed.
+# Take a look at the snippet in the editor. Try to guess its output after the for loop execution. Run the program to check if you were right.
+my_list = []  # Creating an empty list.
+for i in range(5):
+    my_list.append(i + 1)
+
+print(my_list)
+
+# ********* 4.8 Making use of lists
+my_list = [10, 1, 8, 3, 5]
+total = 0
+
+for i in range(len(my_list)):
+    total += my_list[i]
+
+print(total)
+# The second aspect of the for loop
+my_list = [10, 1, 8, 3, 5]
+total = 0
+
+for i in my_list:
+    total += i
+
+print(total)
+
+# ********    5.1 The bubble sort
+# Increasing (or more precisely ‒ non-decreasing) ‒ if in every pair of adjacent elements, the former element is not greater than the latter;
+# Decreasing (or more precisely ‒ non-increasing) ‒ if in every pair of adjacent elements, the former element is not less than the latter.
+
+# 5.2 Sorting a list
+
+# We solve this issue in the following way: we introduce another variable; its task is to observe if any swap has been done during the pass or not; if there is no swap, then the list is already sorted, and nothing more has to be done. We create a variable named swapped, and we assign a value of False to it, to indicate that there are no swaps. Otherwise, it will be assigned True.
+my_list = [8, 10, 6, 2, 4]  # list to sort
+
+for i in range(len(my_list) - 1):  # we need (5 - 1) comparisons
+    if my_list[i] > my_list[i + 1]:  # compare adjacent elements
+        my_list[i], my_list[i + 1] = my_list[i + 1], my_list[i]  # If we end up here, we have to swap the elements.
+        
+        
+
+my_list = [8, 10, 6, 2, 4]  # list to sort
+swapped = True  # It's a little fake, we need it to enter the while loop.
+
+while swapped:
+    swapped = False  # no swaps so far
+    for i in range(len(my_list) - 1):
+        if my_list[i] > my_list[i + 1]:
+            swapped = True  # a swap occurred!
+            my_list[i], my_list[i + 1] = my_list[i + 1], my_list[i]
+
+print(my_list)        
+
+# If you want Python to sort your list, you can do it like this:
+
+my_list = [8, 10, 6, 2, 4]
+my_list.sort()
+print(my_list)
+
+# *******  6.1 The inner life of lists
+# my_list[start:end]
+
+# Note: not to end but to end - 1. An element with an index equal to end is the first element which does not take part in the slicing.
+# Using negative values for both start and end is possible (just like in indexing).
+
+# ***** 6.2 Powerful slices
+# The new_list list will have end - start (3 - 1 = 2) elements ‒ the ones with indices equal to 1 and 2 (but not 3).
+my_list = [10, 8, 6, 4, 2]
+new_list = my_list[1:3]
+print(new_list)
+
+# **** 6.3 Slices – negative indices
+
+my_list[start:end]
+# Start is the index of the first element included in the slice;
+# End is the index of the first element not included in the slice.
+
+my_list = [10, 8, 6, 4, 2]
+new_list = my_list[1:-1]
+print(new_list)
+
+my_list[:end] == my_list[0:end]
+# Similarly, if you omit the end in your slice, it is assumed that you want the slice to end at the element with the index len(my_list)
+my_list = [10, 8, 6, 4, 2]
+new_list = my_list[:3]
+print(new_list)
+
+# my_list[start:]
+
+my_list = [10, 8, 6, 4, 2]
+new_list = my_list[:]
+print(new_list)
+
+# ****** 6.4 The in and not in operators
+
+elem in my_list
+elem not in my_list
+
+my_list = [17, 3, 11, 5, 1, 9, 7, 15, 13]
+largest = my_list[0]
+
+for i in range(1, len(my_list)):
+    if my_list[i] > largest:
+        largest = my_list[i]
+
+# print(largest)  17
+
+my_list = [17, 3, 11, 5, 1, 9, 7, 15, 13]
+largest = my_list[0]
+
+for i in my_list:
+    if i > largest:
+        largest = i
+
+print(largest)
+
+
+vehicles_one = ['car', 'bicycle', 'motor']
+print(vehicles_one) # outputs: ['car', 'bicycle', 'motor']
+ 
+vehicles_two = vehicles_one
+del vehicles_one[0] # deletes 'car'
+print(vehicles_two) # outputs: ['bicycle', 'motor']
+
+# 2. If you want to copy a list or part of the list, you can do it by performing slicing:
+
+colors = ['red', 'green', 'orange']
+copy_whole_colors = colors[:]  # copy the entire list
+copy_part_colors = colors[0:2]  # copy part of the list
+
+# 3. You can use negative indices to perform slices, too. For example:
+sample_list = ["A", "B", "C", "D", "E"]
+new_list = sample_list[2:-1]
+print(new_list)  # outputs: ['C', 'D']
+
+# 4. The start and end parameters are optional when performing a slice: list[start:end], e.g.:
+my_list = [1, 2, 3, 4, 5]
+slice_one = my_list[2: ]
+slice_two = my_list[ :2]
+slice_three = my_list[-2: ]
+
+print(slice_one)  # outputs: [3, 4, 5]
+print(slice_two)  # outputs: [1, 2]
+print(slice_three)  # outputs: [4, 5]
+
+# 5. You can delete slices using the del instruction:
+my_list = [1, 2, 3, 4, 5]
+del my_list[0:2]
+print(my_list)  # outputs: [3, 4, 5]
+
+del my_list[:]
+print(my_list)  # deletes the list content, outputs: []
+
+# 6. You can test if some items exist in a list or not using the keywords in and not in, e.g.:
+my_list = ["A", "B", 1, 2]
+
+print("A" in my_list)  # outputs: True
+print("C" not in my_list)  # outputs: True
+print(2 not in my_list)  # outputs: False
+
+# ******* 7.1 Lists in lists
+# 1. List comprehension allows you to create new lists from existing ones in a concise and elegant way
+# [expression for element in list if conditional]
+# which is actually an equivalent of the following code:
+for element in list:
+    if conditional:
+        expression
+        
+cubed = [num ** 3 for num in range(5)]
+print(cubed)  # outputs: [0, 1, 8, 27, 64]
+
+#********** SECTION 1 - FUNCTION ************
+# It often happens that a particular piece of code is repeated many times in your program.
+# If a particular fragment of the code begins to appear in more than one place, consider the possibility of isolating it in the form of a function invoked from the points where the original code was placed before
+
+# You need to define it. The word define is significant here
+
+# It always starts with the keyword def (for define)
+# next after def goes the name of the function (the rules for naming functions are exactly the same as for naming variables)
+# after the function name, there's a place for a pair of parentheses (they contain nothing here, but that will change soon)
+# the line has to be ended with a colon;
+# the line directly after def begins the function body ‒ a couple (at least one) of necessarily nested instructions, which will be executed every time the function is invoked; note: the function ends where the nesting ends, so you have to be careful.
+
+def function_name():
+    function_body
+
+def message():
+    print("Enter a value: ")
+
+def message():
+    print("Enter a value: ")
+
+print("We start here.")
+print("We end here.")
+
+# We've modified the code now ‒ we've inserted the function's invocation between the start and end messages
+def message():
+    print("Enter a value: ")
+
+print("We start here.")
+message()
+print("We end here.")
+
+# 1. A function is a block of code that performs a specific task when the function is called (invoked). You can use functions to make your code reusable, better organized, and more readable. Functions can have parameters and return values.
+# 2. There are at least four basic types of functions in Python:
+
+# built-in functions which are an integral part of Python (such as the print() function). You can see a complete list of built-in Python functions at https://docs.python.org/3/library/functions.html.
+# the ones that come from pre-installed modules (you'll learn about them in the Python Essentials 2 course)
+# user-defined functions which are written by users for users ‒ you can write your own functions and use them freely in your code,
+# the lambda functions (you'll learn about them in the Python Essentials 2 course.)
+# 3. You can define your own function using the def keyword and the following syntax:
+
+# def your_function(optional parameters):
+#     # the body of the function
+
+# You can define a function which doesn't take any arguments, e.g.:
+
+def message(): # defining a function
+    print("Hello") # body of the function
+
+message() # calling the function
+
+
+# You can define a function which takes arguments, too, just like the one-parameter function below:
+
+def hello(name): # defining a function
+    print("Hello,", name) # body of the function
+
+name = input("Enter your name: ")
+
+hello(name) # calling the function
+
+
+# We'll tell you more about parametrized functions in the next section. Don't worry.
+
+# **** 2.1 Parameterized functions
+# The function's full power reveals itself when it can be equipped with an interface that is able to accept data provided by the invoker
+# parameters exist only inside functions in which they have been defined, and the only place where the parameter can be defined is a space between a pair of parentheses in the def statement;
+# assigning a value to the parameter is done at the time of the function's invocation, by specifying the corresponding argument.
+
+# Don't forget:
+
+# parameters live inside functions (this is their natural environment)
+# arguments exist outside functions, and are carriers of values passed to corresponding parameters.
+
+def message(number):
+    print("Enter a number:", number)
+
+def message(number):
+    print("Enter a number:", number)
+
+message(1)
+
+def message(what, number):
+    print("Enter", what, "number", number)
+
+message("telephone", 11)
+message("price", 5)
+message("number", "number")
+
+# 2.2 Positional parameter passing
+
+# A technique which assigns the ith (first, second, and so on) argument to the ith (first, second, and so on) function parameter is called positional parameter passing, while arguments passed in this way are named positional arguments.
+def my_function(a, b, c):
+    print(a, b, c)
+
+my_function(1, 2, 3)
+
+def introduction(first_name, last_name):
+    print("Hello, my name is", first_name, last_name)
+
+introduction("Luke", "Skywalker")
+introduction("Jesse", "Quick")
+introduction("Clark", "Kent")
+
+
+def introduction(first_name, last_name):
+    print("Hello, my name is", first_name, last_name)
+
+introduction("Skywalker", "Luke")
+introduction("Quick", "Jesse")
+introduction("Kent", "Clark")
+
+# 2.3 Keyword argument passing
+# Python offers another convention for passing arguments, where the meaning of the argument is dictated by its name, not by its position ‒ it's called keyword argument passing
+def introduction(first_name, last_name):
+    print("Hello, my name is", first_name, last_name)
+
+introduction(first_name = "James", last_name = "Bond")
+introduction(last_name = "Skywalker", first_name = "Luke")
+
+# 2.4 Mixing positional and keyword arguments
+# You can mix both styles if you want ‒ there is only one unbreakable rule: you have to put positional arguments before keyword arguments
+def adding(a, b, c):
+    print(a, "+", b, "+", c, "=", a + b + c)
+
+adding(1, 2, 3)  #output: 1 + 2 + 3 = 6
+
+# 1. You can pass information to functions by using parameters. Your functions can have as many parameters as you need
+def hi(name):
+    print("Hi,", name)
+
+hi("Greg")
+
+# An example of a two-parameter function:
+def hi_all(name_1, name_2):
+    print("Hi,", name_2)
+    print("Hi,", name_1)
+
+hi_all("Sebastian", "Konrad")
+
+# 2. You can pass arguments to a function using the following techniques:
+
+# positional argument passing in which the order of arguments passed matters (Ex. 1)
+# keyword (named) argument passing in which the order of arguments passed doesn't matter (Ex. 2)
+# a mix of positional and keyword argument passing (Ex. 3.)
+
+Ex. 1
+def subtra(a, b):
+    print(a - b)
+
+subtra(5, 2)    # outputs: 3
+subtra(2, 5)    # outputs: -3
+
+
+Ex. 2
+def subtra(a, b):
+    print(a - b)
+
+subtra(a=5, b=2)    # outputs: 3
+subtra(b=2, a=5)    # outputs: 3
+
+Ex. 3
+def subtra(a, b):
+    print(a - b)
+
+subtra(5, b=2)    # outputs: 3
+subtra(5, 2)    # outputs: 3
+
+# ***** 3.1 Effects and results: the return instruction
