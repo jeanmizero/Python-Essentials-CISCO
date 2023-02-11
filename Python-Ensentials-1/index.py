@@ -580,3 +580,536 @@ subtra(5, b=2)    # outputs: 3
 subtra(5, 2)    # outputs: 3
 
 # ***** 3.1 Effects and results: the return instruction
+# To get functions to return a value (but not only for this purpose) you use the return instruction.
+# 1. return without an expression
+def happy_new_year(wishes = True):
+    print("Three...")
+    print("Two...")
+    print("One...")
+    if not wishes:
+        return
+
+    print("Happy New Year!")
+    
+happy_new_year()
+happy_new_year(False)	
+
+# 2. return with an expression
+def function():
+    return expression
+
+# There are two consequences of using it:
+
+# it causes the immediate termination of the function's execution (nothing new compared to the first variant)
+# moreover, the function will evaluate the expression's value and will return it (hence the name once again) as the function's result.
+
+def boring_function():
+    return 123
+
+x = boring_function()
+
+print("The boring_function has returned its result. It's:", x)
+
+# 3.2 A few words about None
+# Note: None is a keyword.
+
+# There are only two kinds of circumstances when None can be safely used:
+# when you assign it to a variable (or return it as a function's result)
+# when you compare it with a variable to diagnose its internal state.
+value = None
+if value is None:
+    print("Sorry, you don't carry any value")
+
+def strange_function(n):
+    if(n % 2 == 0):
+        return True
+print(strange_function(2))
+print(strange_function(1))
+
+# 3.3 Effects and results: lists and functions
+# The first is: may a list be sent to a function as an argument?
+def list_sum(lst):
+    s = 0
+
+    for elem in lst:
+        s += elem
+
+    return s
+
+print(list_sum([5, 4, 3]))
+
+def strange_list_fun(n):
+    strange_list = []
+    
+    for i in range(0, n):
+        strange_list.insert(0, i)
+    
+    return strange_list
+
+print(strange_list_fun(5)) #[4, 3, 2, 1, 0]
+
+# 1. You can use the return keyword to tell a function to return some value. The return statement exits the function
+
+def multiply(a, b):
+    return a * b
+
+print(multiply(3, 4))    # outputs: 12
+
+
+def multiply(a, b):
+    return
+
+print(multiply(3, 4))    # outputs: None
+
+# 2. The result of a function can be easily assigned to a variable
+def wishes():
+    return "Happy Birthday!"
+w = wishes()
+print(w) # outputs: Happy Birthday!
+
+# Look at the difference in output in the following two examples:
+# Example 1
+def wishes():
+    print("My Wishes")
+    return "Happy Birthday"
+
+wishes() # outputs: My Wishes
+
+# Example 2
+def wishes():
+    print("My Wishes")
+    return "Happy Birthday"
+
+print(wishes())
+
+# outputs: My Wishes
+# Happy Birthday
+
+# 3. You can use a list as a function's argument
+def hi_everybody(my_list):
+    for name in my_list:
+   "woda": "water",
+        print("Hi,", name)
+
+hi_everybody(["Adam", "John", "Lucy"])
+
+# 4. A list can be a function result
+def create_list(n):
+    my_list = []
+    for i in range(n):
+        my_list.append(i)
+    return my_list
+
+print(create_list(5))
+
+# ******* 4.1 Functions and scopes
+# 1. A variable that exists outside a function has scope inside the function body (Example 1) unless the function defines a variable of the same name (Example 2, and Example 3), e.g.:
+
+# Example 1:
+
+var = 2
+
+def mult_by_var(x):
+    return x * var
+
+print(mult_by_var(7)) # outputs: 14
+
+
+# Example 2:
+
+def mult(x):
+    var = 5
+    return x * var
+
+print(mult(7)) # outputs: 35
+
+
+# Example 3:
+
+def mult(x):
+    var = 7
+    return x * var
+
+var = 3
+print(mult(7)) # outputs: 49
+
+
+# 2. A variable that exists inside a function has scope inside the function body (Example 4), e.g.:
+
+# Example 4:
+
+def adding(x):
+    var = 7
+    return x + var
+
+print(adding(4)) # outputs: 11
+print(var) # NameError
+
+
+# 3. You can use the global keyword followed by a variable name to make the variable's scope global, e.g.:
+
+var = 2
+print(var) # outputs: 2
+
+def return_var():
+    global var
+    var = 5
+    return var
+
+print(return_var()) # outputs: 5
+print(var) # outputs: 5
+
+# 5.1 Sample functions
+
+def bmi(weight, height):
+    return weight / height ** 2
+
+print(bmi(52.5, 1.65)) # 19.283746556473833
+
+def bmi(weight, height):
+    if height < 1.0 or height > 2.5 or \
+    weight < 20 or weight > 200:
+        return None
+
+    return weight / height ** 2
+
+
+print(bmi(352.5, 1.65))
+
+def ft_and_inch_to_m(ft, inch):
+    return ft * 0.3048 + inch * 0.0254
+
+print(ft_and_inch_to_m(1, 1))
+# We've modified the code a bit:
+def ft_and_inch_to_m(ft, inch = 0.0):
+    return ft * 0.3048 + inch * 0.0254
+
+print(ft_and_inch_to_m(6))
+
+def ft_and_inch_to_m(ft, inch = 0.0):
+    return ft * 0.3048 + inch * 0.0254
+
+def lb_to_kg(lb):
+    return lb * 0.4535923
+
+def bmi(weight, height):
+    if height < 1.0 or height > 2.5 or weight < 20 or weight > 200:
+        return None
+
+    return weight / height ** 2
+
+print(bmi(weight = lb_to_kg(176), height = ft_and_inch_to_m(5, 7))) # 27.565214082533313
+
+# 5.2 Sample functions: Triangles
+def is_a_triangle(a, b, c):
+    if a + b <= c:
+        return False
+    if b + c <= a:
+        return False
+    if c + a <= b:
+        return False
+    return True
+
+
+print(is_a_triangle(1, 1, 1))
+print(is_a_triangle(1, 1, 3))
+
+# This is a more compact version
+def is_a_triangle(a, b, c):
+    if a + b <= c or b + c <= a or c + a <= b:
+        return False
+    return True
+
+print(is_a_triangle(1, 1, 1))
+print(is_a_triangle(1, 1, 3))
+# Can we compact it even more?
+def is_a_triangle(a, b, c):
+    return a + b > c and b + c > a and c + a > b
+
+print(is_a_triangle(1, 1, 1))
+print(is_a_triangle(1, 1, 3))
+
+def is_a_triangle(a, b, c):
+    return a + b > c and b + c > a and c + a > b
+
+
+a = float(input('Enter the first side\'s length: '))
+b = float(input('Enter the second side\'s length: '))
+c = float(input('Enter the third side\'s length: '))
+
+if is_a_triangle(a, b, c):
+    print('Yes, it can be a triangle.')
+else:
+    print('No, it can\'t be a triangle.')
+    
+
+# 5.3 Sample functions: Factorials
+def factorial_function(n):
+    if n < 0:
+        return None
+    if n < 2:
+        return 1
+
+    product = 1
+    for i in range(2, n + 1):
+        product *= i
+    return product
+
+for n in range(1, 6): # testing
+    print(n, factorial_function(n))
+    
+    
+# 5.4 Fibonacci numbers
+# They are a sequence of integer numbers built using a very simple rule:
+# the first element of the sequence is equal to one (Fib1 = 1)
+# the second is also equal to one (Fib2 = 1)
+# every subsequent number is the the_sum of the two preceding numbers:(Fibi = Fibi-1 + Fibi-2)
+
+def fib(n):
+    if n < 1:
+        return None
+    if n < 3:
+        return 1
+
+    elem_1 = elem_2 = 1
+    the_sum = 0
+    for i in range(3, n + 1):
+        the_sum = elem_1 + elem_2
+        elem_1, elem_2 = elem_2, the_sum
+    return the_sum
+
+for n in range(1, 10): # testing
+    print(n, "->", fib(n))
+    
+# 5.5 Recursion
+# In this field, recursion is a technique where a function invokes itself.
+# Fibi = Fibi-1 + Fibi-2
+def fib(n):
+    if n < 1:
+        return None
+    if n < 3:
+        return 1
+    return fib(n - 1) + fib(n - 2)
+# The factorial has a second, recursive side too
+# n! = (n-1)! × n
+def factorial_function(n):
+    if n < 0:
+        return None
+    if n < 2:
+        return 1
+    return n * factorial_function(n - 1)
+
+def fib(n):
+    if n < 1:
+        return None
+    if n < 3:
+        return 1
+
+    elem_1 = elem_2 = 1
+    the_sum = 0
+    for i in range(3, n + 1):
+        the_sum = elem_1 + elem_2
+        elem_1, elem_2 = elem_2, the_sum
+    return the_sum
+
+
+for n in range(1, 10):
+    print(n, "->", fib(n))
+    
+# ********* SECTION 6 - TUPLES AND DICTIONARIES **********
+
+# ** 6.2 Tuples
+# A tuple is an immutable sequence type
+# tuples prefer to use parenthesis, whereas lists like to see brackets, although it's also possible to create a tuple just from a set of values separated by commas
+# How to create a tuple
+empty_tuple = ()
+my_tuple = (1, 10, 100, 1000)
+for elem in my_tuple:
+    print(elem)
+    
+#What else can tuples do for you?
+
+# the len() function accepts tuples, and returns the number of elements contained inside;
+# the + operator can join tuples together (we've shown you this already)
+# the * operator can multiply tuples, just like lists;
+# the in and not in operators work in the same way as in lists
+
+# ** 6.3 Dictionaries
+# It's not a sequence type (but can be easily adapted to sequence processing) and it is mutable
+# The list of pairs is surrounded by curly braces, while the pairs themselves are separated by commas, and the keys and values by colons
+# In Python's world, the word you look for is named a key. The word you get from the dictionary is called a value.
+
+# This means that a dictionary is a set of key-value pairs. Note:
+# each key must be unique − it's not possible to have more than one key of the same value;
+# a key may be any immutable type of object: it can be a number (integer or float), or even a string, but not a list;
+# a dictionary is not a list − a list contains a set of numbered values, while a dictionary holds pairs of values;
+# the len() function works for dictionaries, too − it returns the number of key-value elements in the dictionary;
+# a dictionary is a one-way tool − if you have an English-French dictionary, you can look for French equivalents of English terms, but not vice versa
+dictionary = {"cat": "chat", "dog": "chien", "horse": "cheval"}
+phone_numbers = {'boss': 5551234567, 'Suzy': 22657854310}
+empty_dictionary = {}
+
+print(dictionary)
+print(phone_numbers)
+print(empty_dictionary)
+
+dictionary = {"cat": "chat", "dog": "chien", "horse": "cheval"}
+words = ['cat', 'lion', 'horse']
+
+for word in words:
+    if word in dictionary:
+        print(word, "->", dictionary[word])
+    else:
+        print(word, "is not in dictionary")
+
+# The keys() method
+# Can dictionaries be browsed using the for loop, like lists or tuples?
+# No and yes.
+# No, because a dictionary is not a sequence type − the for loop is useless with it.
+
+# The first of them is a method named keys(), possessed by each dictionary. The method returns an iterable object consisting of all the keys gathered within the dictionary
+dictionary = {"cat": "chat", "dog": "chien", "horse": "cheval"}
+
+for key in dictionary.keys():
+    print(key, "->", dictionary[key])
+    
+# The method returns tuples (this is the first example where tuples are something more than just an example of themselves) where each tuple is a key-value pair
+dictionary = {"cat": "chat", "dog": "chien", "horse": "cheval"}
+
+for english, french in dictionary.items():
+    print(english, "->", french)
+
+# The sorted() function
+for key in sorted(dictionary.keys()):
+# There is also a method called values(), which works similarly to keys(), but returns values.
+dictionary = {"cat": "chat", "dog": "chien", "horse": "cheval"}
+
+for french in dictionary.values():
+    print(french)
+
+# 6.5 Tuples and dictionaries can work together
+# Let's imagine the following problem:
+
+# you need a program to evaluate the students' average scores;
+# the program should ask for the student's name, followed by her/his single score;
+# the names may be entered in any order;
+# entering an empty name finishes the inputting of the data (note 1: entering an empty score will raise the ValueError exception, but don't worry about that now, you'll see how to handle such cases when we talk about exceptions in the second part of the Python Essentials course series)
+# a list of all names, together with the evaluated average score, should be then emitted.
+
+school_class = {}
+
+while True:
+    name = input("Enter the student's name: ")
+    if name == '':
+        break
+    
+    score = int(input("Enter the student's score (0-10): "))
+    if score not in range(0, 11):    
+	    break
+    
+    if name in school_class:
+        school_class[name] += (score,)
+    else:
+        school_class[name] = (score,)
+        
+for name in sorted(school_class.keys()):
+    adding = 0
+    counter = 0
+    for score in school_class[name]:
+        adding += score
+        counter += 1
+    print(name, ":", adding / counter)
+
+# line 1: create an empty dictionary for the input data; the student's name is used as a key, while all the associated scores are stored in a tuple (the tuple may be a dictionary value - that's not a problem at all)
+# line 3: enter an "infinite" loop (don't worry, it'll break at the right moment)
+# line 4: read the student's name here;
+# line 5-6: if the name is an empty string (), leave the loop;
+# line 8: ask for one of the student's scores (an integer from the range 0-10)
+# line 9-10: if the score entered is not within the range from 0 to 10, leave the loop;
+# line 12-13: if the student's name is already in the dictionary, lengthen the associated tuple with the new score (note the += operator)
+# line 14-15: if this is a new student (unknown to the dictionary), create a new entry - its value is a one-element tuple containing the entered score;
+# line 17: iterate through the sorted students' names;
+# line 18-19: initialize the data needed to evaluate the average (sum and counter)
+# line 20-22: we iterate through the tuple, taking all the subsequent scores and updating the sum, together with the counter;
+# line 23: evaluate and print the student's name and average score.
+
+# 1. Tuples are ordered and unchangeable (immutable) collections of data. They can be thought of as immutable lists.
+my_tuple = (1, 2, True, "a string", (3, 4), [5, 6], None)
+print(my_tuple)
+my_list = [1, 2, True, "a string", (3, 4), [5, 6], None]
+print(my_list)
+
+# 2. You can create an empty tuple like this:
+empty_tuple = ()
+print(type(empty_tuple)) # outputs:
+# 3. A one-element tuple may be created as follows:
+one_elem_tuple_1 = ("one", ) # Brackets and a comma.
+one_elem_tuple_2 = "one", # No brackets, just a comma.
+# 1. Dictionaries are unordered*, changeable (mutable), and indexed collections of data.
+# Each dictionary is a set of key: value pairs.
+my_dictionary = {
+    key1: value1,
+    key2: value2,
+    key3: value3,
+}
+
+# ******* SECTION 7 - EXCEPTIONS **********
+# 7.3 The try-except branch
+# You can see two branches here:
+# first, starting with the try keyword – this is the place where you put the code you suspect is risky and may be terminated in case of error; note: this kind of error is called an exception, while the exception occurrence is called raising – we can say that an exception is (or was) raised;
+# second, the part of the code starting with the except keyword is designed to handle the exception; it's up to you what you want to do here: you can clean up the mess or you can just sweep the problem under the carpet (although we would prefer the first solution).
+# So, we could say that these two blocks work like this:
+# the try keyword marks the place where you try to do something without permission;
+# the except keyword starts a location where you can show off your apology talents.
+try:
+	# It's a place where
+	# you can do something 
+    # without asking for permission.
+except:
+	# It's a spot dedicated to 
+    # solemnly begging for forgiveness.
+    
+# 7.4 The exception proves the rule
+try:
+    value = int(input('Enter a natural number: '))
+    print('The reciprocal of', value, 'is', 1/value)        
+except:
+    print('I do not know what to do.')
+    
+# any part of the code placed between try and except is executed in a very special way – any error which occurs here won't terminate program execution. Instead, the control will immediately jump to the first line situated after the except keyword, and no other part of the try branch is executed;
+# the code in the except branch is activated only when an exception has been encountered inside the try block. There is no way to get there by any other means;
+# when either the try block or the except block is executed successfully, the control returns to the normal path of execution, and any code located beyond in the source file is executed as if nothing happened.
+# Now we want to ask you an innocent question: is ValueError the only way the control could fall into the except branch?
+
+# Two exceptions after one try
+try:
+    value = int(input('Enter a natural number: '))
+    print('The reciprocal of', value, 'is', 1/value)        
+except ValueError:
+    print('I do not know what to do.')    
+except ZeroDivisionError:
+    print('Division by zero is not allowed in our Universe.') 
+    
+# 7.6 The default exception and how to use it
+try:
+    value = int(input('Enter a natural number: '))
+    print('The reciprocal of', value, 'is', 1/value)        
+except ValueError:
+    print('I do not know what to do.')    
+except ZeroDivisionError:
+    print('Division by zero is not allowed in our Universe.')    
+except:
+    print('Something strange has happened here... Sorry!')
+    
+# 7.7 Some useful exceptions
+# 1. ZeroDivisionError
+# This appears when you try to force Python to perform any operation which provokes division in which the divider is zero, or is indistinguishable from zero. Note that there is more than one Python operator which may cause this exception to raise. Can you guess them all?
+# Yes, they are: /, //, and %.
+# 2.ValueError
+# Expect this exception when you're dealing with values which may be inappropriately used in some context. In general, this exception is raised when a function (like int() or float()) receives an argument of a proper type, but its value is unacceptable.
+# 3. TypeError
+# This exception shows up when you try to apply a data whose type cannot be accepted in the current context.
+# 4. AttributeError
+# This exception arrives – among other occasions – when you try to activate a method which doesn't exist in an item you're dealing with.
+# 5. SyntaxError
+# This exception is raised when the control reaches a line of code which violates Python's grammar. It may sound strange, but some errors of this kind cannot be identified without first running the code
