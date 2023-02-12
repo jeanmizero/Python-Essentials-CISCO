@@ -95,3 +95,237 @@ pip list
 # pip install -U name – updates a previously installed package;
 # pip uninstall name – uninstalls a previously installed package.
 
+# ******* SECTION 1 - CHARACTERS AND STRINGS VS COMPUTERS *******
+# 1. Computers store characters as numbers. There is more than one possible way of encoding characters, but only some of them gained worldwide popularity and are commonly used in IT: these are ASCII (used mainly to encode the Latin alphabet and some of its derivates) and UNICODE (able to encode virtually all alphabets being used by humans).
+# 2. A number corresponding to a particular character is called a codepoint.
+# 3. UNICODE uses different ways of encoding when it comes to storing the characters using files or computer memory: two of them are UCS-4 and UTF-8 (the latter is the most common as it wastes less memory space).
+
+# 2.1 Strings - a brief review
+word = 'by'
+print(len(word))
+# 2.4 Strings as sequences
+# Indexing
+# We told you before that Python strings are sequences. It's time to show you what that actually means.
+# Strings aren't lists, but you can treat them like lists in many particular cases.
+
+the_string = 'silly walks'
+
+for ix in range(len(the_string)):
+    print(the_string[ix], end=' ')
+
+print()
+# 2.5 Slices
+# Slices
+
+alpha = "abdefg"
+
+print(alpha[1:3])
+print(alpha[3:])
+print(alpha[:3])
+print(alpha[3:-2])
+print(alpha[-3:4])
+print(alpha[::2])
+print(alpha[1::2])
+
+# 2.6 The in and not in operators
+# The in operator
+# The in operator shouldn't surprise you when applied to strings – it simply checks if its left argument (a string) can be found anywhere within the right argument (another string).
+# The result of the check is simply True or False.
+# Look at the example program below. This is how the in operator works:
+
+# The not in operator
+# As you probably suspect, the not in operator is also applicable here.
+# This is how it works
+
+# 2.7 Python strings are immutable
+# 3. Strings can be concatenated using the + operator, and replicated using the * operator. For example:
+asterisk = '*'
+plus = "+"
+decoration = (asterisk + plus) * 4 + asterisk
+print(decoration)
+
+# The count() method
+# The count() method counts all occurrences of the element inside the sequence. The absence of such elements doesn't cause any problems
+# Demonstrating the count() method:
+print("abcabc".count("b"))
+print('abcabc'.count("d"))
+
+# 3.4 The find() method
+# The find() method is similar to index(), which you already know – it looks for a substring and returns the index of the first occurrence of this substring, but:
+# it's safer – it doesn't generate an error for an argument containing a non-existent substring (it returns -1 then)
+# it works with strings only – don't try to apply it to any other sequence
+
+# Demonstrating the find() method:
+print("Eta".find("ta"))
+print("Eta".find("mma"))
+
+# 3.5 The isalnum() method
+# The parameterless method named isalnum() checks if the string contains only digits or alphabetical characters (letters), and returns True or False according to the result.
+# Demonstrating the isalnum() method:
+print('lambda30'.isalnum())
+print('lambda'.isalnum())
+print('30'.isalnum())
+print('@'.isalnum())
+print('lambda_30'.isalnum())
+print(''.isalnum())
+
+# 3.6 The isalpha() method
+# The isalpha() method is more specialized – it's interested in letters only.
+# Example 1: Demonstrating the isapha() method:
+print("Moooo".isalpha())
+print('Mu40'.isalpha())
+
+# 3.7 The isdigit() method
+# In turn, the isdigit() method looks at digits only – anything else produces False as the result.
+# Example 2: Demonstrating the isdigit() method:
+print('2018'.isdigit())
+print("Year2019".isdigit())
+
+# 3.8 The islower() method
+# The islower() method is a fussy variant of isalpha() – it accepts lower-case letters only.
+# Example: Demonstrating the islower() method:
+print("Moooo".islower())
+print('moooo'.islower())
+
+# 3.9 The isspace() method
+# The isspace() method identifies whitespaces only – it disregards any other character (the result is False then).
+# Example: Demonstrating the isspace() method:
+print(' \n '.isspace())
+print(" ".isspace())
+print("mooo mooo mooo".isspace())
+
+# 3.11 The join() method
+# The join() method is rather complicated, so let us guide you through it step by step:
+
+# as its name suggests, the method performs a join – it expects one argument as a list; it must be assured that all the list's elements are strings – the method will raise a TypeError exception otherwise;
+# all the list's elements will be joined into one string but...
+# ...the string from which the method has been invoked is used as a separator, put among the strings;
+# the newly created string is returned as a result
+# Demonstrating the join() method:
+print(",".join(["omicron", "pi", "rho"]))
+
+# 3.12 The lower() method
+# The lower() method makes a copy of a source string, replaces all upper-case letters with their lower-case counterparts, and returns the string as the result.
+# Note: The lower() method doesn't take any parameters.
+# Demonstrating the lower() method:
+print("SiGmA=60".lower())
+
+# 3.13 The lstrip() method
+# The parameterless version of the lstrip() method returns a newly created string formed from the original one by removing all leading whitespaces.
+# Demonstrating the lstrip() method:
+print("[" + " tau ".lstrip() + "]")
+print("www.cisco.com".lstrip("w."))
+
+# 3.14 The replace() method
+# The two-parameter replace() method returns a copy of the original string in which all occurrences of the first argument have been replaced by the second argument.
+# Demonstrating the replace() method:
+print("www.netacad.com".replace("netacad.com", "pythoninstitute.org"))
+print("This is it!".replace("is", "are"))
+print("Apple juice".replace("juice", ""))
+
+# 3.17 The split() method
+# The split() method does what it says – it splits the string and builds a list of all detected substrings.
+# The method assumes that the substrings are delimited by whitespaces – the spaces don't take part in the operation, and aren't copied into the resulting list
+# Demonstrating the split() method:
+print("phi       chi\npsi".split())
+
+# 1. Some of the methods offered by strings are:
+
+# capitalize() – changes all string letters to capitals;
+# center() – centers the string inside the field of a known length;
+# count() – counts the occurrences of a given character;
+# join() – joins all items of a tuple/list into one string;
+# lower() – converts all the string's letters into lower-case letters;
+# lstrip() – removes the white characters from the beginning of the string;
+# replace() – replaces a given substring with another;
+# rfind() – finds a substring starting from the end of the string;
+# rstrip() – removes the trailing white spaces from the end of the string;
+# split() – splits the string into a substring using a given delimiter;
+# strip() – removes the leading and trailing white spaces;
+# swapcase() – swaps the letters' cases (lower to upper and vice versa)
+# title() – makes the first letter in each word upper-case;
+# upper() – converts all the string's letter into upper-case letters.
+
+# 2. String content can be determined using the following methods (all of them return Boolean values):
+
+# endswith() – does the string end with a given substring?
+# isalnum() – does the string consist only of letters and digits?
+# isalpha() – does the string consist only of letters?
+# islower() – does the string consists only of lower-case letters?
+# isspace() – does the string consists only of white spaces?
+# isupper() – does the string consists only of upper-case letters?
+# startswith() – does the string begin with a given substring?
+
+# 4.1 Comparing strings
+# 4.2 Sorting
+# Comparing is closely related to sorting (or rather, sorting is in fact a very sophisticated case of comparing).
+# This is a good opportunity to show you two possible ways to sort lists containing strings. Such an operation is very common in the real world – any time you see a list of names, goods, titles, or cities, you expect them to be sorted.
+# The first is implemented as a function named sorted().
+# Demonstrating the sorted() function:
+first_greek = ['omega', 'alpha', 'pi', 'gamma']
+first_greek_2 = sorted(first_greek)
+
+print(first_greek)
+print(first_greek_2)
+
+print()
+
+
+# 1. An exception is an event during program execution caused by an abnormal situation. The exception should he handled to avoid the termination of the program. The part of your code that is suspected of being the source of the exception should be put inside the try branch.
+
+# When the exception happens, the execution of the code is not terminated, but instead jumps into the except branch. This is the place where the handling of the exception should take place. The general scheme for such a construction looks as follows:
+
+# The code that always runs smoothly.
+:
+try:
+    :
+    # Risky code.
+    :
+except:
+    :
+    # Crisis management takes place here.
+    :
+:
+# Back to normal.
+:
+
+
+# 2. If you need to handle more than one exception coming from the same try branch, you can add more than one except branch, but you have to label them with different exception names, like this:
+
+# The code that always runs smoothly.
+:
+try:
+    :
+    # Risky code.
+    :
+except Except_1:
+    # Crisis management takes place here.
+except Except_2:
+    # We save the world here.
+:
+# Back to normal.
+:
+
+
+# At most, one of the except branches is executed – none of the branches is performed when the raised exception doesn't match any of the specified exceptions.
+
+# 3. You cannot add more than one anonymous (unnamed) except branch after the named ones.
+
+# The code that always runs smoothly.
+:
+try:
+    :
+    # Risky code.
+    :
+except Except_1:
+    # Crisis management takes place here.
+except Except_2:
+    # We save the world here.
+except:
+    # All other issues fall here.
+:
+# Back to normal.
+:
+
+
+
